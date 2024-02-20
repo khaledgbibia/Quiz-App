@@ -3,18 +3,24 @@ import React, { useEffect, useState } from 'react'
 
 import {useFetchQestion} from'../hooks/FetchQuestion'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { updateResult } from '../hooks/setResult'
 
 export default function Questions ({onChecked}) {
 const [checked, setChecked]= useState(undefined)
+const {trace} = useSelector(state => state.questions)
+const result = useSelector(state => state.result.result)
 const [{ isLoading , apiData , serverError}] =useFetchQestion()
 
-
+  
 const questions= useSelector(state => state.questions.queue[state.questions.trace])
-const trace = useSelector(state => state.questions.trace )
+
+const dispatch = useDispatch()
  useEffect(() => {
-  // console.log(questions)
- })
+   
+  dispatch(updateResult({trace, checked}))
+ },[checked])
 
 
 
@@ -23,6 +29,8 @@ const trace = useSelector(state => state.questions.trace )
     function onSelect (i){
         
         onChecked(i)
+        setChecked(i)
+        dispatch(updateResult({trace, checked}))
     }
 
     if(isLoading) return <h3 className='text-light'>isLoading</h3>
@@ -44,7 +52,7 @@ const trace = useSelector(state => state.questions.trace )
      onChange={() => onSelect(i)}
      />
      <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
-     <div className='check'>
+     <div className={`check ${result[trace] == i? 'checked' : ''}`}>
 
      </div>
 </li>

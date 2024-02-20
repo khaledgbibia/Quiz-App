@@ -10,15 +10,15 @@ export const questionReducer = createSlice({
     
     reducers : {
         startExamAction : (state, action) => {
-            
+            let { question, answers} = action.payload
             return {
                 ...state,
-                queue : action.payload,
-               
+                queue : question,
+               answers
             }
         },
 
-        moveNextAction : (state) => {
+        moveNextAction : (state) => {   
             return {
                 ...state,
                 trace : state.trace + 1

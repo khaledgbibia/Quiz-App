@@ -7,6 +7,7 @@ import '../styles/App.css';
 import  Main  from './Main';
 import Quiz from './Quiz';
 import Result from './Result';
+import { CheckUserExist } from '../helpers/helper';
 
 
 /**react router */
@@ -17,11 +18,11 @@ const router = createBrowserRouter([
   },
   {
     path : '/quiz',
-    element :<Quiz></Quiz>
+    element :<CheckUserExist><Quiz/></CheckUserExist> 
    },
    {
     path : '/result',
-    element : <Result></Result>
+    element :<CheckUserExist><Result/></CheckUserExist> 
    },
 ])
 function App() {

@@ -20,11 +20,18 @@ export default function Quiz() {
     console.log('On next Click')
     if (trace < queue.length){
     dispatch((MoveNextQuestion()))
-    dispatch(PushAnswer(check))
-  }}
+    if (result.length <= trace){
+      dispatch(PushAnswer(check))
+    }
+  }
+
+setChecked(undefined)
+
+
+}
   /**prev button event handler */
   function OnPrev (){
-    console.log('On prev Click')
+    
     if (trace > 0 ){
     dispatch((MovePreQuestion()))
   }
@@ -48,7 +55,7 @@ return <Navigate to={'/result' } replace = {true}></Navigate>
 {/* display questions */}
 <Questions onChecked={onChecked}/>
       <div className='grid'>
-      <button className='btn prev' onClick={OnPrev}>Prev</button>
+      {trace > 0? <button className='btn prev' onClick={OnPrev}>Prev</button> :<div></div>}
         <button className='btn next' onClick={OnNext}>Next</button>
       </div>
     </div>
